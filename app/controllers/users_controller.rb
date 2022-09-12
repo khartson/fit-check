@@ -7,8 +7,20 @@ class UsersController < ApplicationController
   # return the created user
   def create
     user = User.create!(user_params)
-    session[:id] = user.id
+    session[:user_id] = user.id
     render json: user, status: :created
+  end
+
+  # show user when logged in
+  # checks user id against session hash, returns 
+  # corresponding user 
+  def show 
+    user = User.find_by(id: session[:user_id])
+    if user 
+      render json: user
+    else 
+      render json: { error: "Unauthorized", status: :unauthorized }
+    end
   end 
 
 
@@ -19,7 +31,7 @@ class UsersController < ApplicationController
   end 
 
   def render_unprocessable_entity_response(invalid)
-    render json: { errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+    render json: { errors: invalid.record.errors.full_messages }, status: :unprocessable_entity
   end 
 
 end
