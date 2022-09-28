@@ -17,15 +17,19 @@ function Footer() {
       <Grid divided inverted stackable centered> 
         <Grid.Row>
           <Grid.Column width={4} textAlign='left'>
-            <Header as='a' inverted>FitCheck.</Header>
+            <Header inverted>FitCheck.</Header>
           </Grid.Column>
           <Grid.Column width={4} textAlign='center'>
-            <Header as='h4' inverted> About this Site</Header>
+            <Header as={Link} to='/about' inverted> About this Site</Header>
           </Grid.Column>
           <Grid.Column width={4} textAlign='right'>
             <List inverted bulleted horizontal link>
-              <List.Item as='a' href='https://github.com/khartson'><Icon size='large' name='github'/></List.Item>
-              <List.Item as='a' href='https://www.linkedin.com/in/kyle-hartson/'><Icon name='linkedin'/></List.Item>
+              <List.Item as='a' href='https://github.com/khartson'>
+                <Icon size='large' name='github'/>
+              </List.Item>
+              <List.Item as='a' href='https://www.linkedin.com/in/kyle-hartson/'>
+                <Icon size='large' name='linkedin'/>
+              </List.Item>
             </List>
           </Grid.Column>
         </Grid.Row>

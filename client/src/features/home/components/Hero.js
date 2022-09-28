@@ -17,7 +17,7 @@ function Hero() {
         text textAlign='center'
       >
       <Header as='h1'>Welcome to FitCheck.</Header>
-      <p>A community-driven platform for strength athletes to perfect their craft</p>
+      <p style={{color: 'grey'}}>A community-driven platform for strength athletes to perfect their craft</p>
       <Button as={Link} to='signup' color='black'>Sign up</Button>
       <Button as={Link} to='login' basic>Login</Button>
     </Container>
