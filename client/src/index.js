@@ -1,13 +1,24 @@
+// Framework/Library imports
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+// CSS import(s)
 import './index.css';
 import 'semantic-ui-css/semantic.min.css'
+
+// React/Redux/Custom imports
 import App from './App';
+import store from './store';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
