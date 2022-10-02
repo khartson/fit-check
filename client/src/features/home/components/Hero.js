@@ -5,7 +5,6 @@ import {
   Button,
   Header,
   Grid,
-  Segment
 } from 'semantic-ui-react';
 function Hero() {
   return (
