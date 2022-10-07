@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
-
   # create new user and save to db 
   # save user to session hash
   # return the created user
