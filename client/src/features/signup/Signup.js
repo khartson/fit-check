@@ -15,8 +15,25 @@ function Signup() {
   const [bio, setBio] = useState("");
 
   function handleSubmit(e) {
-    console.log(name, username, password, passwordConfirmation, bio);
     e.preventDefault();
+
+    fetch('/signup', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name, 
+        username: username,
+        password: password,
+        password_confirmation: passwordConfirmation,
+        bio: bio,
+      }),
+    }).then((r)=>{
+      // if (r.ok) {
+        r.json().then((user)=>console.log(user));
+      // }
+    })
 
   }
   return(
