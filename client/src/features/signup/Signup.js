@@ -1,22 +1,33 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { userLoggedIn } from "../user/userSlice";
+
 import {
   Grid,
   Form,
   Header,
   Button,
   Segment,
+  Message,
 } from 'semantic-ui-react';
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [bio, setBio] = useState("");
 
+  const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState([]); 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
-
+    setErrorMsg([]);
     fetch('/signup', {
       method: "POST",
       headers: {
@@ -30,9 +41,19 @@ function Signup() {
         bio: bio,
       }),
     }).then((r)=>{
-      // if (r.ok) {
-        r.json().then((user)=>console.log(user));
-      // }
+      if (r.ok) {
+        setError(false)
+        r.json().then((user)=>{
+          dispatch(userLoggedIn(user));
+          navigate('/feed')
+        });
+      }
+      else {
+        r.json().then((user)=>{
+          setErrorMsg(user.errors);
+          setError(true);
+        })
+      }
     })
 
   }
@@ -45,7 +66,7 @@ function Signup() {
         >
           <Grid.Column style={{width: '500px'}}>
             <Header  inverted as='h2' textAlign="center">Sign Up for FitCheck</Header>
-            <Form onSubmit={handleSubmit}>
+            <Form error={error} onSubmit={handleSubmit}>
               <Segment stacked> 
                 <Form.Input value={name} 
                             fluid icon='male' 
@@ -75,6 +96,9 @@ function Signup() {
                 <Button basic type='submit' fluid size='large'>
                   Sign up
                 </Button>
+                {errorMsg.map((error)=>{
+                  return <Message error content={error}/>
+                })}
               </Segment>
             </Form>
           </Grid.Column>
